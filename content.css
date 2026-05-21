@@ -1,0 +1,59 @@
+#jaf-fill-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483646;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+#jaf-fill-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#jaf-fill-btn:active {
+  transform: translateY(0);
+}
+
+#jaf-fill-btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.jaf-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 78px;
+  z-index: 2147483647;
+  background: #111827;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  max-width: 320px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: jaf-fade-in 180ms ease both;
+}
+
+.jaf-toast-error {
+  background: #b91c1c;
+}
+
+@keyframes jaf-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

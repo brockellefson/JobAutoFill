@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "JobAutoFill",
+  "version": "0.3.0",
+  "description": "One-click autofill for Greenhouse, Ashby, Lever, and Workable job applications.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://job-boards.greenhouse.io/*",
+    "https://boards.greenhouse.io/*",
+    "https://*.greenhouse.io/*",
+    "https://jobs.ashbyhq.com/*",
+    "https://*.ashbyhq.com/*",
+    "https://jobs.lever.co/*",
+    "https://apply.workable.com/*",
+    "https://*.workable.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "JobAutoFill — edit profile",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://job-boards.greenhouse.io/*/jobs/*",
+        "https://boards.greenhouse.io/*/jobs/*",
+        "https://jobs.ashbyhq.com/*",
+        "https://jobs.lever.co/*",
+        "https://apply.workable.com/*"
+      ],
+      "js": [
+        "content/utils.js",
+        "content/adapters.js",
+        "content/matcher.js",
+        "content/labels.js",
+        "content/fillers/native.js",
+        "content/fillers/radios.js",
+        "content/fillers/checkboxes.js",
+        "content/fillers/react-select.js",
+        "content/fillers/listbox.js",
+        "content/main.js"
+      ],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

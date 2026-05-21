@@ -1,0 +1,28 @@
+<!--
+  Minimal Lever-shape application form. Lever wraps each question in
+  <li class="application-question"> with a <span class="application-label">
+  heading at the top. The adapter's questionLabel selector should find these.
+-->
+<head><title>Apply</title></head>
+<body>
+  <ul class="application-form">
+    <li class="application-question">
+      <span class="application-label">First name</span>
+      <input name="cards[abc][first]" type="text" />
+    </li>
+    <li class="application-question">
+      <span class="application-label">Last name</span>
+      <input name="cards[abc][last]" type="text" />
+    </li>
+    <li class="application-question">
+      <span class="application-label">Email</span>
+      <input name="cards[abc][email]" type="email" />
+    </li>
+
+    <li class="application-question">
+      <span class="application-label">Are you legally authorized to work in the United States?</span>
+      <label><input type="radio" name="cards[lever][q1]" value="yes" /> Yes</label>
+      <label><input type="radio" name="cards[lever][q1]" value="no" /> No</label>
+    </li>
+  </ul>
+</body>
