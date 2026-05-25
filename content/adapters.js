@@ -33,10 +33,23 @@
     {
       name: "ashby",
       match: (h) => h.endsWith("ashbyhq.com"),
-      selectors: {},
+      selectors: {
+        // Ashby wraps each question's prompt in this label, with a `for=GUID`
+        // that points to a non-existent id when the answer widget is custom
+        // (e.g. its Yes/No button pair). Surfacing it here lets the generic
+        // label resolver find it without needing the for/id link to resolve.
+        questionLabel: ".ashby-application-form-question-title",
+      },
       extraPatterns: [],
       // Note: Ashby's location field is a Google Places typeahead. The
       // generic native filler sets the text; the user accepts the suggestion.
+      //
+      // Ashby's Yes/No questions render as a div containing two plain <button>
+      // elements — no <input>, no radio group, no aria-haspopup="listbox". None
+      // of the generic fillers catch this widget, so handle it here.
+      customFill: async function (profile) {
+        return J.fillAshbyButtonChoices ? J.fillAshbyButtonChoices(profile) : 0;
+      },
     },
     {
       name: "lever",

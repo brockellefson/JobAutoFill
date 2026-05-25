@@ -48,6 +48,7 @@
         "content/fillers/checkboxes.js",
         "content/fillers/react-select.js",
         "content/fillers/listbox.js",
+        "content/fillers/ashby-buttons.js",
         "content/main.js"
       ],
       "css": ["content.css"],

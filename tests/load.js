@@ -20,6 +20,7 @@ const FILES = [
   "content/fillers/checkboxes.js",
   "content/fillers/react-select.js",
   "content/fillers/listbox.js",
+  "content/fillers/ashby-buttons.js",
 ];
 
 // jsdom doesn't implement the CSS interface. Polyfill the only bit we use.

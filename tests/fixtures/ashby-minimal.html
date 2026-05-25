@@ -1,0 +1,47 @@
+<!--
+  Minimal Ashby application form excerpt. Captures the Yes/No button widget
+  Ashby uses for work-authorization questions:
+    * label.ashby-application-form-question-title has for=GUID pointing at a
+      non-existent id (the widget is custom, not a real input).
+    * The answer area is a div whose direct children are two <button>s plus
+      a hidden state <input type="checkbox" tabindex="-1">.
+  None of the standard fillers (native/radios/checkboxes/react-select/listbox)
+  catch this; the Ashby adapter's customFill handles it.
+-->
+<!--
+  Note: deliberately NO wrapping <form>. The real Ashby application page keeps
+  the Yes/No buttons (type="submit") outside any form, so they don't actually
+  submit anything. Wrapping them in a <form> would make jsdom try to call the
+  non-implemented HTMLFormElement.requestSubmit and pollute stderr.
+-->
+<html>
+  <body>
+      <div class="_fieldEntry_17tft_29 ashby-application-form-field-entry">
+        <label class="_label_17tft_43 ashby-application-form-question-title" for="6114f0eb-762f-410e-ba71-afc407d85b74">
+          Will you now, or in the future, require visa sponsorship to work in the country that you are residing in?
+        </label>
+        <div class="_container_y2cw4_29 _yesno_17tft_149">
+          <button type="submit" class="_container_pjyt6_1 _option_y2cw4_33" data-testid="yes-btn">Yes</button>
+          <button type="submit" class="_container_pjyt6_1 _option_y2cw4_33" data-testid="no-btn">No</button>
+          <input type="checkbox" class="_input_y2cw4_79" tabindex="-1" name="6114f0eb-762f-410e-ba71-afc407d85b74" />
+        </div>
+      </div>
+
+      <div class="_fieldEntry_17tft_29 ashby-application-form-field-entry">
+        <label class="_label_17tft_43 ashby-application-form-question-title" for="abc-work-auth-guid">
+          Are you legally authorized to work in the country where this job is located?
+        </label>
+        <div class="_container_y2cw4_29 _yesno_17tft_149">
+          <button type="submit" class="_container_pjyt6_1 _option_y2cw4_33" data-testid="auth-yes-btn">Yes</button>
+          <button type="submit" class="_container_pjyt6_1 _option_y2cw4_33" data-testid="auth-no-btn">No</button>
+          <input type="checkbox" class="_input_y2cw4_79" tabindex="-1" name="abc-work-auth-guid" />
+        </div>
+      </div>
+
+      <!-- A real text field — must NOT be treated as a button-choice entry. -->
+      <div class="_fieldEntry_17tft_29 ashby-application-form-field-entry">
+        <label class="_label_17tft_43 ashby-application-form-question-title" for="_systemfield_name">Name</label>
+        <input id="_systemfield_name" name="_systemfield_name" type="text" />
+      </div>
+  </body>
+</html>

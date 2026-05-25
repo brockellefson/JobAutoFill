@@ -86,6 +86,79 @@ describe("Lever-shape form", () => {
   });
 });
 
+// Ashby renders Yes/No (and similar small-choice) questions as a pair of
+// plain <button>s plus a hidden React-state <input type="checkbox" tabindex="-1">.
+// The label's `for=` points to a non-existent id, so radios.js, listbox.js,
+// native.js, react-select.js, and checkboxes.js all miss it. The Ashby
+// adapter's customFill (fillAshbyButtonChoices) handles it.
+describe("Ashby Yes/No button widget", () => {
+  let J;
+  beforeEach(() => {
+    J = loadJAF();
+    Object.defineProperty(window, "location", {
+      value: new URL("https://jobs.ashbyhq.com/acme/abc/application"),
+      configurable: true,
+    });
+    loadFixture("ashby-minimal.html");
+  });
+
+  it("clicks the matching button for sponsorship and work-authorization questions", async () => {
+    // jsdom doesn't implement PointerEvent; the filler guards that, but make
+    // sure missing PointerEvent doesn't make the test crash.
+    expect(typeof J.fillAshbyButtonChoices).toBe("function");
+
+    // Track which buttons get clicked so we can assert *which* one was picked,
+    // not just that something was clicked. (jsdom doesn't have CSS-driven
+    // active-state visuals.)
+    const clicked = [];
+    for (const b of document.querySelectorAll("button")) {
+      b.addEventListener("click", () => clicked.push(b.dataset.testid));
+    }
+
+    const n = J.fillAshbyButtonChoices(PROFILE);
+    expect(n).toBe(2);
+    // needs_sponsorship: "No" → click the "No" button on the sponsorship row.
+    expect(clicked).toContain("no-btn");
+    expect(clicked).not.toContain("yes-btn");
+    // work_authorized: "Yes" → click the "Yes" button on the auth row.
+    expect(clicked).toContain("auth-yes-btn");
+    expect(clicked).not.toContain("auth-no-btn");
+  });
+
+  it("ignores entries with no button-choice widget", () => {
+    // The Name entry is a plain text input — must not be touched.
+    const clicked = [];
+    for (const b of document.querySelectorAll("button")) {
+      b.addEventListener("click", () => clicked.push(b.dataset.testid));
+    }
+    J.fillAshbyButtonChoices(PROFILE);
+    // Only the two Yes/No groups; nothing else.
+    expect(clicked.length).toBe(2);
+    // The text input must remain untouched.
+    expect(document.getElementById("_systemfield_name").value).toBe("");
+  });
+
+  it("does nothing when profile has no value for the matched key", () => {
+    const clicked = [];
+    for (const b of document.querySelectorAll("button")) {
+      b.addEventListener("click", () => clicked.push(b.dataset.testid));
+    }
+    const n = J.fillAshbyButtonChoices({ first_name: "Ada" });
+    expect(n).toBe(0);
+    expect(clicked).toEqual([]);
+  });
+
+  it("is wired up as the Ashby adapter's customFill", async () => {
+    // Sanity-check the adapter selection + customFill plumbing — the bug we
+    // shipped without this filler returned 0 from runAutofill.
+    const adapter = J.pickAdapter();
+    expect(adapter.name).toBe("ashby");
+    expect(typeof adapter.customFill).toBe("function");
+    const n = await adapter.customFill(PROFILE);
+    expect(n).toBe(2);
+  });
+});
+
 // Regression: Figma's Greenhouse form lazy-loads the race react-select only
 // after country gets filled. The first pass over .select__control therefore
 // missed race entirely. fillReactSelects now re-queries the DOM after each
