@@ -43,6 +43,19 @@ describe("matchKey", () => {
   it("returns null when no pattern matches", () => {
     expect(J.matchKey("What's your favorite color?", "", "")).toBeNull();
   });
+
+  // Ashby uses bare labels like "Git link" and "Location" that the original
+  // PATTERNS missed. Make sure both still resolve along with the existing
+  // GitHub / "Location (City)" / "Where do you intend to work" forms.
+  it("matches Ashby-style bare labels for github and location", () => {
+    expect(J.matchKey("Git link", "", "")).toBe("github");
+    expect(J.matchKey("Git URL", "", "")).toBe("github");
+    expect(J.matchKey("Git", "", "")).toBe("github");
+    expect(J.matchKey("GitHub", "", "")).toBe("github");
+    expect(J.matchKey("Location", "", "")).toBe("location");
+    expect(J.matchKey("Location (City)", "", "")).toBe("location");
+    expect(J.matchKey("Current Location", "", "")).toBe("location");
+  });
 });
 
 describe("bestMatchIndex", () => {

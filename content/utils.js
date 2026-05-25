@@ -64,8 +64,16 @@
   };
 
   J.isInsideReactSelect = function isInsideReactSelect(el) {
+    // react-select wraps its search input in a control container whose class
+    // either is .select__control or contains "select__" (default classNamePrefix)
+    // or ends in "-control" (custom builds). Those markers are sufficient.
+    //
+    // Do NOT match on [role="combobox"]: el.closest() includes the element
+    // itself, and Ashby's Google Places location field is a plain
+    // <input role="combobox"> with no react-select markers — we want
+    // fillNativeFields to set its text.
     return !!el.closest(
-      '.select__control, [class*="-control"], [class*="select__"], [role="combobox"]'
+      '.select__control, [class*="-control"], [class*="select__"]'
     );
   };
 })();

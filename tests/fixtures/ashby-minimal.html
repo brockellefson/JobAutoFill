@@ -43,5 +43,22 @@
         <label class="_label_17tft_43 ashby-application-form-question-title" for="_systemfield_name">Name</label>
         <input id="_systemfield_name" name="_systemfield_name" type="text" />
       </div>
+
+      <!-- Git link: text input whose label[for=GUID] resolves. Originally
+           missed because the matcher's only github pattern was /github/. -->
+      <div class="_fieldEntry_17tft_29 ashby-application-form-field-entry">
+        <label class="_label_17tft_43 ashby-application-form-question-title" for="4e929e78-fc28-4ffe-8d80-c01acde01481">Git link</label>
+        <input id="4e929e78-fc28-4ffe-8d80-c01acde01481" name="4e929e78-fc28-4ffe-8d80-c01acde01481" type="text" placeholder="Type here..." />
+      </div>
+
+      <!-- Location: Google-Places typeahead with role="combobox" on the
+           input itself. Originally skipped because isInsideReactSelect
+           matched the [role="combobox"] selector against the input itself. -->
+      <div class="_fieldEntry_17tft_29 ashby-application-form-field-entry">
+        <label class="_label_17tft_43 ashby-application-form-question-title" for="f2cf17f9-e9a3-4644-b198-29a087daf103">Location</label>
+        <div class="_inputContainer_v5ami_28">
+          <input type="text" role="combobox" aria-autocomplete="list" placeholder="Start typing..." class="_input_v5ami_28" />
+        </div>
+      </div>
   </body>
 </html>

@@ -7,6 +7,7 @@ const PROFILE = {
   last_name: "Lovelace",
   email: "ada@example.com",
   phone: "555-0100",
+  location: "San Francisco, CA",
   linkedin: "https://linkedin.com/in/ada",
   github: "https://github.com/ada",
   website: "https://ada.example",
@@ -146,6 +147,17 @@ describe("Ashby Yes/No button widget", () => {
     const n = J.fillAshbyButtonChoices({ first_name: "Ada" });
     expect(n).toBe(0);
     expect(clicked).toEqual([]);
+  });
+
+  it("fills Git link and Location text inputs via fillNativeFields", () => {
+    const n = J.fillNativeFields(PROFILE);
+    const gitInput = document.getElementById("4e929e78-fc28-4ffe-8d80-c01acde01481");
+    expect(gitInput.value).toBe("https://github.com/ada");
+    // Location is the only role="combobox" input in the fixture — the
+    // earlier isInsideReactSelect false positive made it skip this field.
+    const locInput = document.querySelector('input[role="combobox"]');
+    expect(locInput.value).toBe("San Francisco, CA");
+    expect(n).toBeGreaterThanOrEqual(2);
   });
 
   it("is wired up as the Ashby adapter's customFill", async () => {

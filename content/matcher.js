@@ -19,11 +19,14 @@
     { key: "last_name", tests: [/^last name$/, /family name|surname/, /\blast name\b/] },
     { key: "email", tests: [/^e ?mail/] },
     { key: "phone", tests: [/^phone( number)?$/, /telephone/, /mobile (number|phone)/, /^phone$/] },
-    { key: "location", tests: [/where.*intend.*work/, /location.*city/, /^city$/, /current location/, /location \(city\)/] },
+    { key: "location", tests: [/where.*intend.*work/, /location.*city/, /^city$/, /current location/, /location \(city\)/, /^location$/] },
     { key: "country", tests: [/^country$/] },
     { key: "pronouns", tests: [/pronoun/] },
     { key: "linkedin", tests: [/linkedin/] },
-    { key: "github", tests: [/github/] },
+    // "Git link" / "Git URL" / bare "Git" cover Ashby and other ATSes that
+    // ask for any git host (not just GitHub). Users put their GitHub URL here
+    // in practice.
+    { key: "github", tests: [/github/, /^git link$/, /^git url$/, /^git$/] },
     { key: "website", tests: [/portfolio/, /personal (web)?site/, /^website$/, /website url/] },
     { key: "other_website", tests: [/other website/, /other url/, /other link/] },
     { key: "work_authorized", tests: [/authori[sz]ed to work/, /legally authori[sz]ed/, /right to work/, /us citizen.*permanent resident/, /citizen or permanent resident/, /eligible to work/] },
